@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D body;
-    private float forwardMomentum = 200f;
+    private float forwardMomentum = 500f;
     public float turnSpeed = 1f;
     Vector2 movement;
 
@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         //Move();
         //Turn();
+
         body.MoveRotation(body.rotation - movement.x);
         // body.MovePosition(body.position + movement * moveSpeed * Time.fixedDeltaTime);
         body.AddRelativeForce(Vector2.up * forwardMomentum * Time.fixedDeltaTime);
