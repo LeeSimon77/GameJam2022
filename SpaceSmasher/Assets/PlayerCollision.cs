@@ -11,14 +11,18 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Asteroid"))
+        if(collision.gameObject.CompareTag("size0"))
         {
             Destroy(collision.gameObject);
             crashSound.Play();
             GameScoreScript.GameScore++;
             Debug.Log("Player size: " + GameScoreScript.GameScore);
             scoreText.text = "Score: " + GameScoreScript.GameScore;
-            spawner.destroyAsteroid();
+            spawner.destroyAsteroid(0);
+        }
+        else if(collision.gameObject.CompareTag("size5"))
+        {
+
         }
     }
 }
