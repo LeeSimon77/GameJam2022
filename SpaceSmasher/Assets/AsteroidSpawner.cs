@@ -13,7 +13,7 @@ public class AsteroidSpawner : MonoBehaviour
     public int minAsteroids;
     private int numAsteroids;
 
-    private float asteroidMinSpeed = 1f;
+    private float asteroidMinSpeed = -5f;
     private float asteroidMaxSpeed = 5f;
 
     [SerializeField] private GameObject asteroidPrefab;
@@ -48,7 +48,7 @@ public class AsteroidSpawner : MonoBehaviour
         Vector2 position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
 
         GameObject newAsteroid = Instantiate(asteroidPrefab, position, Quaternion.identity);
-        newAsteroid.rigidbody.velocity = new Vector2(Random.Range(asteroidMinSpeed, asteroidMaxSpeed), Random.Range(asteroidMinSpeed, asteroidMaxSpeed));
+        newAsteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(asteroidMinSpeed, asteroidMaxSpeed), Random.Range(asteroidMinSpeed, asteroidMaxSpeed));
         numAsteroids++;
     }
 }
