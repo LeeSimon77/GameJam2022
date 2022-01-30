@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Asteroid
   - BoundingBox
+  - size0
+  - size5
   layers:
   - Default
   - TransparentFX
