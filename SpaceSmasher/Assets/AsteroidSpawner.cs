@@ -18,6 +18,8 @@ public class AsteroidSpawner : MonoBehaviour
 
     [SerializeField] private GameObject asteroidPrefab;
 
+    public Sprite[] spriteList;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +51,7 @@ public class AsteroidSpawner : MonoBehaviour
 
         GameObject newAsteroid = Instantiate(asteroidPrefab, position, Quaternion.identity);
         newAsteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(asteroidMinSpeed, asteroidMaxSpeed), Random.Range(asteroidMinSpeed, asteroidMaxSpeed));
+        newAsteroid.GetComponent<SpriteRenderer>().sprite = spriteList[Random.Range(0, spriteList.Length)];
         numAsteroids++;
     }
 }
