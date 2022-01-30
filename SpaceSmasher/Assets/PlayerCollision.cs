@@ -45,6 +45,7 @@ public class PlayerCollision : MonoBehaviour
         {
             if (growthScript.playerSize > 4)
                 absorb(3, 4, collision.gameObject);
+                
             else if (growthScript.playerSize < 4)
                 die();
         }
@@ -53,8 +54,6 @@ public class PlayerCollision : MonoBehaviour
             if (growthScript.playerSize < 5)
                 die();
         }
-
-
     }
 
     private void die()
@@ -71,6 +70,8 @@ public class PlayerCollision : MonoBehaviour
         Destroy(collided);
         crashSound.Play();
         GameScoreScript.GameScore += points;
+        if (GameScoreScript.GameScore > 50)
+            GoToWin();
         Debug.Log("Player size: " + GameScoreScript.GameScore);
         scoreText.text = "Score: " + GameScoreScript.GameScore;
         spawner.destroyAsteroid(size);
@@ -78,12 +79,23 @@ public class PlayerCollision : MonoBehaviour
 
     public void GoToGameOver()
     {
-        StartCoroutine(DelaySceneLoad());
+        StartCoroutine(DelayGameOverSceneLoad());
     }
 
-    IEnumerator DelaySceneLoad()
+    IEnumerator DelayGameOverSceneLoad()
     {
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("GameOverScreen");
+    }
+
+    public void GoToWin()
+    {
+        StartCoroutine(DelayWinSceneLoad());
+    }
+
+    IEnumerator DelayWinSceneLoad()
+    {
+        yield return new WaitForSeconds(0.4f);
+        SceneManager.LoadScene("WinScreen");
     }
 }
