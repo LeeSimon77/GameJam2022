@@ -8,6 +8,10 @@ TagManager:
   - BoundingBox
   - size0
   - size5
+  - size4
+  - size3
+  - size2
+  - size1
   layers:
   - Default
   - TransparentFX

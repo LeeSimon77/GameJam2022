@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    private float minX = -518.9f;
-    private float maxX = -128.9f;
-    private float maxY = -44.5f;
-    private float minY = -287.5f;
+    private float minX = -485f;
+    private float maxX = -161f;
+    private float maxY = -74f;
+    private float minY = -282f;
 
-    public int maxSize0;
-    public int minSize0;
-    private int numSize0;
-    [SerializeField] private GameObject size0Prefab;
+    public int[] maxSizes;
+    public int[] minSizes;
+    private int[] numOfSize;
 
-    public int maxSize5;
-    public int minSize5;
-    private int numSize5;
-    [SerializeField] private GameObject size5Prefab;
+    [SerializeField] private GameObject[] prefabs;
 
     private float asteroidMinSpeed = -5f;
     private float asteroidMaxSpeed = 5f;
@@ -27,13 +23,15 @@ public class AsteroidSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        numSize0 = 0;
-        while(numSize0 < maxSize0)
-            spawnAsteroid(0);
-
-        numSize5 = 0;
-        while (numSize5 < maxSize5)
-            spawnAsteroid(5);
+        numOfSize = new int[maxSizes.Length];
+        for(int i = 0; i < maxSizes.Length; i++)
+        {
+            numOfSize[i] = 0;
+            while(numOfSize[i] < maxSizes[i])
+            {
+                spawnAsteroid(i);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -44,45 +42,20 @@ public class AsteroidSpawner : MonoBehaviour
 
     public void destroyAsteroid(int size)
     {
-        if (size == 0)
+        numOfSize[size]--;
+        while(numOfSize[size] < maxSizes[0])
         {
-            numSize0--;
-            if (numSize0 <= minSize0)
-            {
-                while (numSize0 < maxSize0)
-                    spawnAsteroid(0);
-            }
-        }
-        else if (size == 5)
-        {
-            numSize5--;
-            if (numSize5 <= minSize5)
-            {
-                while (numSize5 < maxSize5)
-                    spawnAsteroid(5);
-            }
+            spawnAsteroid(size);
         }
     }
 
     private void spawnAsteroid(int size)
     {
-        if(size == 0)
-        {
             Vector2 position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-
-            GameObject newAsteroid = Instantiate(size0Prefab, position, Quaternion.identity);
+            GameObject newAsteroid = Instantiate(prefabs[size], position, Quaternion.identity);
             newAsteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(asteroidMinSpeed, asteroidMaxSpeed), Random.Range(asteroidMinSpeed, asteroidMaxSpeed));
             newAsteroid.GetComponent<SpriteRenderer>().sprite = spriteList[Random.Range(0, spriteList.Length)];
-            numSize0++;
-        }
-        else if (size == 5)
-        {
-            Vector2 position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
 
-            GameObject newAsteroid = Instantiate(size5Prefab, position, Quaternion.identity);
-            newAsteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(asteroidMinSpeed, asteroidMaxSpeed), Random.Range(asteroidMinSpeed, asteroidMaxSpeed));
-            newAsteroid.GetComponent<SpriteRenderer>().sprite = spriteList[Random.Range(0, spriteList.Length)];
-            numSize5++;
-        }
+        numOfSize[size]++;
     }
 }
