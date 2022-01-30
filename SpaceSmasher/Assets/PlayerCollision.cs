@@ -26,7 +26,7 @@ public class PlayerCollision : MonoBehaviour
             scoreText.text = "Score: " + GameScoreScript.GameScore;
             spawner.destroyAsteroid(0);
         }
-        else if(collision.gameObject.CompareTag("size5"))
+        else if(collision.gameObject.CompareTag("size5") || collision.gameObject.CompareTag("size4") || collision.gameObject.CompareTag("size3") || collision.gameObject.CompareTag("size2"))
         {
             player.GetComponent<SpriteRenderer>().enabled = false;
             particles.Play();
