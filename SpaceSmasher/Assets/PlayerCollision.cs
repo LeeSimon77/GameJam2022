@@ -8,6 +8,7 @@ public class PlayerCollision : MonoBehaviour
 {
     [SerializeField] private Text scoreText;
     [SerializeField] private AsteroidSpawner spawner;
+    [SerializeField] private PlayerGrowth growthScript;
     public AudioSource crashSound;
     public AudioSource explosionSound;
 
@@ -17,23 +18,62 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("size0"))
+        if (collision.gameObject.CompareTag("size0"))
         {
-            Destroy(collision.gameObject);
-            crashSound.Play();
-            GameScoreScript.GameScore++;
-            Debug.Log("Player size: " + GameScoreScript.GameScore);
-            scoreText.text = "Score: " + GameScoreScript.GameScore;
-            spawner.destroyAsteroid(0);
+            absorb(0, 1, collision.gameObject);
         }
-        else if(collision.gameObject.CompareTag("size5") || collision.gameObject.CompareTag("size4") || collision.gameObject.CompareTag("size3") || collision.gameObject.CompareTag("size2"))
+        else if(collision.gameObject.CompareTag("size1"))
         {
-            player.GetComponent<SpriteRenderer>().enabled = false;
-            particles.Play();
-            explosionSound.Play();
-            controller.pauseMovement();
-            GoToGameOver();
+            if (growthScript.playerSize > 1)
+                absorb(1, 2, collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("size2"))
+        {
+            if (growthScript.playerSize > 2)
+                absorb(1, 2, collision.gameObject);
+            else if (growthScript.playerSize < 2)
+                die();
+        }
+        else if (collision.gameObject.CompareTag("size3"))
+        {
+            if (growthScript.playerSize > 3)
+                absorb(2, 3, collision.gameObject);
+            else if (growthScript.playerSize < 3)
+                die();
+        }
+        else if (collision.gameObject.CompareTag("size4"))
+        {
+            if (growthScript.playerSize > 4)
+                absorb(3, 4, collision.gameObject);
+            else if (growthScript.playerSize < 4)
+                die();
+        }
+        else if (collision.gameObject.CompareTag("size5"))
+        {
+            if (growthScript.playerSize < 5)
+                die();
+        }
+
+
+    }
+
+    private void die()
+    {
+        player.GetComponent<SpriteRenderer>().enabled = false;
+        particles.Play();
+        explosionSound.Play();
+        controller.pauseMovement();
+        GoToGameOver();
+    }
+
+    private void absorb(int size, int points, GameObject collided)
+    {
+        Destroy(collided);
+        crashSound.Play();
+        GameScoreScript.GameScore += points;
+        Debug.Log("Player size: " + GameScoreScript.GameScore);
+        scoreText.text = "Score: " + GameScoreScript.GameScore;
+        spawner.destroyAsteroid(size);
     }
 
     public void GoToGameOver()
