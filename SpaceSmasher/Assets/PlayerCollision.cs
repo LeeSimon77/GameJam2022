@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private int playerSize = 1;
     [SerializeField] private Text scoreText;
     [SerializeField] private AsteroidSpawner spawner;
 
@@ -14,9 +13,9 @@ public class PlayerCollision : MonoBehaviour
         if(collision.gameObject.CompareTag("Asteroid"))
         {
             Destroy(collision.gameObject);
-            playerSize++;
-            Debug.Log("Player size: " + playerSize);
-            scoreText.text = "Score: " + playerSize;
+            GameScoreScript.GameScore++;
+            Debug.Log("Player size: " + GameScoreScript.GameScore);
+            scoreText.text = "Size: " + GameScoreScript.GameScore;
             spawner.destroyAsteroid();
         }
     }
