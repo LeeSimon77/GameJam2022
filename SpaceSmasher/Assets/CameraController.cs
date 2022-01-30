@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] GameObject Player;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,6 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.Euler(Vector3.zero);
+        this.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, -10);
     }
 }
