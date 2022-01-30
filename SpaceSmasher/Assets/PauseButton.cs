@@ -8,6 +8,8 @@ public class PauseButton : MonoBehaviour
     public GameObject playButton;
     public GameObject pauseButton;
     public GameObject pauseMenu;
+    public AudioSource gameMusic;
+    public AudioSource pauseMusic;
 
     private bool paused = false;
 
@@ -24,6 +26,8 @@ public class PauseButton : MonoBehaviour
         pauseButton.SetActive(false);
         playButton.SetActive(true);
         pauseMenu.SetActive(true);
+        gameMusic.Pause();
+        pauseMusic.Play();
         paused = true;
     }
 
@@ -33,6 +37,8 @@ public class PauseButton : MonoBehaviour
         pauseButton.SetActive(true);
         playButton.SetActive(false);
         pauseMenu.SetActive(false);
+        pauseMusic.Stop();
+        gameMusic.Play();
         paused = false;
     }
 }
