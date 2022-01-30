@@ -7,6 +7,7 @@ public class PlayerCollision : MonoBehaviour
 {
     private int playerSize = 1;
     [SerializeField] private Text scoreText;
+    [SerializeField] private AsteroidSpawner spawner;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,7 +17,7 @@ public class PlayerCollision : MonoBehaviour
             playerSize++;
             Debug.Log("Player size: " + playerSize);
             scoreText.text = "Score: " + playerSize;
-
+            spawner.destroyAsteroid();
         }
     }
 }
