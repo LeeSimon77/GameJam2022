@@ -18,6 +18,8 @@ public class AsteroidSpawner : MonoBehaviour
     private float asteroidMinSpeed = -5f;
     private float asteroidMaxSpeed = 5f;
 
+    public Sprite[] spriteList;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,8 @@ public class AsteroidSpawner : MonoBehaviour
             Vector2 position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
             GameObject newAsteroid = Instantiate(prefabs[size], position, Quaternion.identity);
             newAsteroid.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(asteroidMinSpeed, asteroidMaxSpeed), Random.Range(asteroidMinSpeed, asteroidMaxSpeed));
-            numOfSize[size]++;
+            newAsteroid.GetComponent<SpriteRenderer>().sprite = spriteList[Random.Range(0, spriteList.Length)];
+
+        numOfSize[size]++;
     }
 }
