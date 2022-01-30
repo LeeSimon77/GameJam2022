@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    private float minX = -518.9f;
-    private float maxX = -128.9f;
-    private float maxY = -44.5f;
-    private float minY = -287.5f;
+    private float minX = -485f;
+    private float maxX = -161f;
+    private float maxY = -74f;
+    private float minY = -282f;
 
     public int[] maxSizes;
     public int[] minSizes;
