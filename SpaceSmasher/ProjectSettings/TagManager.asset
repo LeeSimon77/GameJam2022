@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Asteroid
   layers:
   - Default
   - TransparentFX
@@ -41,9 +42,12 @@ TagManager:
   - name: background
     uniqueID: 1665376005
     locked: 0
+  - name: stars
+    uniqueID: 1231230083
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: stars
-    uniqueID: 1231230083
+  - name: foreground
+    uniqueID: 1219477033
     locked: 0
