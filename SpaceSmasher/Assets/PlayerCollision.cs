@@ -15,7 +15,7 @@ public class PlayerCollision : MonoBehaviour
             Destroy(collision.gameObject);
             GameScoreScript.GameScore++;
             Debug.Log("Player size: " + GameScoreScript.GameScore);
-            scoreText.text = "Score: " + GameScoreScript.GameScore;
+            scoreText.text = "Size: " + GameScoreScript.GameScore;
             spawner.destroyAsteroid();
         }
     }
