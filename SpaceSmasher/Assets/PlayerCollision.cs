@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
     [SerializeField] private Text scoreText;
     [SerializeField] private AsteroidSpawner spawner;
     public AudioSource crashSound;
+    public AudioSource explosionSound;
+
+    public PlayerController controller;
+    public GameObject player;
+    public ParticleSystem particles;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -22,7 +28,22 @@ public class PlayerCollision : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("size5"))
         {
-
+            player.GetComponent<SpriteRenderer>().enabled = false;
+            particles.Play();
+            explosionSound.Play();
+            controller.pauseMovement();
+            GoToGameOver();
         }
+    }
+
+    public void GoToGameOver()
+    {
+        StartCoroutine(DelaySceneLoad());
+    }
+
+    IEnumerator DelaySceneLoad()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("GameOverScreen");
     }
 }
